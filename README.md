@@ -9,6 +9,7 @@ cukup Python 3.10+.
 - `list` semua tugas
 - `selesai <nomor>` menandai tugas selesai
 - `hapus <nomor>` menghapus tugas
+- `ringkasan` menghitung tugas selesai dan yang belum
 - Data disimpan di `~/.task-cli.json` (bisa diubah dengan `--file`)
 
 ## Contoh
