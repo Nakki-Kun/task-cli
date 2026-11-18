@@ -75,6 +75,11 @@ def cari(tasks, kata):
     return [tugas for tugas in tasks if kata in tugas["judul"].lower()]
 
 
+def bersihkan_selesai(tasks):
+    """Buang semua tugas yang sudah selesai, kembalikan daftar baru."""
+    return [tugas for tugas in tasks if not tugas["selesai"]]
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Pencatat tugas sederhana.")
     parser.add_argument("--file", default=str(DEFAULT_PATH), help="lokasi file data JSON")
@@ -94,6 +99,8 @@ def main(argv=None):
 
     cari_cmd = sub.add_parser("cari", help="cari tugas berdasarkan kata kunci")
     cari_cmd.add_argument("kata")
+
+    sub.add_parser("bersihkan", help="hapus semua tugas yang sudah selesai")
 
     args = parser.parse_args(argv)
     tasks = muat(args.file)
@@ -115,6 +122,8 @@ def main(argv=None):
             hasil = cari(tasks, args.kata)
             print(tampilkan(hasil))
             return 0
+        elif args.perintah == "bersihkan":
+            tasks = bersihkan_selesai(tasks)
     except (ValueError, IndexError) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1

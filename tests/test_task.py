@@ -81,6 +81,23 @@ class CariTest(unittest.TestCase):
             task.cari(self.tasks, "  ")
 
 
+class BersihkanTest(unittest.TestCase):
+    def test_buang_yang_selesai(self):
+        tasks = [
+            {"judul": "a", "selesai": True},
+            {"judul": "b", "selesai": False},
+            {"judul": "c", "selesai": True},
+        ]
+        self.assertEqual(task.bersihkan_selesai(tasks), [{"judul": "b", "selesai": False}])
+
+    def test_semua_belum_selesai(self):
+        tasks = [{"judul": "a", "selesai": False}]
+        self.assertEqual(task.bersihkan_selesai(tasks), tasks)
+
+    def test_daftar_kosong(self):
+        self.assertEqual(task.bersihkan_selesai([]), [])
+
+
 class TampilanTest(unittest.TestCase):
     def test_daftar_kosong(self):
         self.assertIn("Belum ada tugas", task.tampilkan([]))
