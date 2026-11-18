@@ -67,6 +67,14 @@ def tampilkan(tasks):
     return "\n".join(baris)
 
 
+def cari(tasks, kata):
+    """Cari tugas yang judulnya mengandung kata tertentu (tanpa beda huruf besar/kecil)."""
+    kata = kata.strip().lower()
+    if not kata:
+        raise ValueError("kata kunci pencarian tidak boleh kosong")
+    return [tugas for tugas in tasks if kata in tugas["judul"].lower()]
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Pencatat tugas sederhana.")
     parser.add_argument("--file", default=str(DEFAULT_PATH), help="lokasi file data JSON")
@@ -84,6 +92,9 @@ def main(argv=None):
     hapus_cmd = sub.add_parser("hapus", help="hapus tugas")
     hapus_cmd.add_argument("nomor", type=int)
 
+    cari_cmd = sub.add_parser("cari", help="cari tugas berdasarkan kata kunci")
+    cari_cmd.add_argument("kata")
+
     args = parser.parse_args(argv)
     tasks = muat(args.file)
 
@@ -100,6 +111,9 @@ def main(argv=None):
         elif args.perintah == "ringkasan":
             info = ringkasan(tasks)
             print(f"{info['selesai']}/{info['total']} tugas selesai ({info['belum']} belum)")
+        elif args.perintah == "cari":
+            hasil = cari(tasks, args.kata)
+            print(tampilkan(hasil))
             return 0
     except (ValueError, IndexError) as error:
         print(f"Error: {error}", file=sys.stderr)

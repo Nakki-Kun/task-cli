@@ -61,6 +61,26 @@ class RingkasanTest(unittest.TestCase):
         self.assertEqual(task.ringkasan([]), {"total": 0, "selesai": 0, "belum": 0})
 
 
+class CariTest(unittest.TestCase):
+    def setUp(self):
+        self.tasks = [
+            {"judul": "Belajar Python", "selesai": False},
+            {"judul": "Nulis README", "selesai": True},
+            {"judul": "belajar git", "selesai": False},
+        ]
+
+    def test_cari_tanpa_beda_huruf(self):
+        hasil = task.cari(self.tasks, "BELAJAR")
+        self.assertEqual(len(hasil), 2)
+
+    def test_tidak_ketemu(self):
+        self.assertEqual(task.cari(self.tasks, "masak"), [])
+
+    def test_kata_kosong(self):
+        with self.assertRaises(ValueError):
+            task.cari(self.tasks, "  ")
+
+
 class TampilanTest(unittest.TestCase):
     def test_daftar_kosong(self):
         self.assertIn("Belum ada tugas", task.tampilkan([]))

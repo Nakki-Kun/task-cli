@@ -10,6 +10,7 @@ cukup Python 3.10+.
 - `selesai <nomor>` menandai tugas selesai
 - `hapus <nomor>` menghapus tugas
 - `ringkasan` menghitung tugas selesai dan yang belum
+- `cari <kata>` mencari tugas berdasarkan judul
 - Data disimpan di `~/.task-cli.json` (bisa diubah dengan `--file`)
 
 ## Contoh
