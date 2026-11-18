@@ -48,6 +48,19 @@ class PenyimpananTest(unittest.TestCase):
             self.assertEqual(task.muat(Path(folder) / "kosong.json"), [])
 
 
+class RingkasanTest(unittest.TestCase):
+    def test_hitung(self):
+        tasks = [
+            {"judul": "a", "selesai": True},
+            {"judul": "b", "selesai": False},
+            {"judul": "c", "selesai": True},
+        ]
+        self.assertEqual(task.ringkasan(tasks), {"total": 3, "selesai": 2, "belum": 1})
+
+    def test_kosong(self):
+        self.assertEqual(task.ringkasan([]), {"total": 0, "selesai": 0, "belum": 0})
+
+
 class TampilanTest(unittest.TestCase):
     def test_daftar_kosong(self):
         self.assertIn("Belum ada tugas", task.tampilkan([]))
