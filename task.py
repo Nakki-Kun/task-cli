@@ -80,6 +80,12 @@ def bersihkan_selesai(tasks):
     return [tugas for tugas in tasks if not tugas["selesai"]]
 
 
+def ringkasan(tasks):
+    """Hitung berapa tugas yang sudah selesai dan yang belum."""
+    selesai = sum(1 for tugas in tasks if tugas["selesai"])
+    return {"total": len(tasks), "selesai": selesai, "belum": len(tasks) - selesai}
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Pencatat tugas sederhana.")
     parser.add_argument("--file", default=str(DEFAULT_PATH), help="lokasi file data JSON")
@@ -135,9 +141,3 @@ def main(argv=None):
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-
-def ringkasan(tasks):
-    """Hitung berapa tugas yang sudah selesai dan yang belum."""
-    selesai = sum(1 for tugas in tasks if tugas["selesai"])
-    return {"total": len(tasks), "selesai": selesai, "belum": len(tasks) - selesai}
