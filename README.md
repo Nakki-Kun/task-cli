@@ -11,6 +11,7 @@ cukup Python 3.10+.
 - `hapus <nomor>` menghapus tugas
 - `ringkasan` menghitung tugas selesai dan yang belum
 - `cari <kata>` mencari tugas berdasarkan judul
+- `bersihkan` menghapus semua tugas yang sudah selesai
 - Data disimpan di `~/.task-cli.json` (bisa diubah dengan `--file`)
 
 ## Contoh
